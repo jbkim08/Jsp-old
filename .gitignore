@@ -4,6 +4,8 @@
 bin/
 .classpath
 .project
+*/build/
+
 # 확장자 txt파일은 깃으로 저장하지 않음
 *.txt 
 
