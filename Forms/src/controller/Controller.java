@@ -27,10 +27,10 @@ public class Controller extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
-		String user = req.getParameter("user");
+		String email = req.getParameter("email");
 		
 		out.println("<html>");
-		out.println("user http post : "+user);		
+		out.println("user Email http post : "+ email);		
 		out.println("</html>");
 	}
 
