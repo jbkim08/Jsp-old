@@ -7,12 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<jsp:useBean id="user" class="beans.User" scope="page"/>
-<jsp:setProperty property="*" name="user"/>
-
-
-<p>비번 : <%=user.getPassword() %>
-
+	<p><a href="<%=request.getContextPath() %>/Controller?action=login">로그인</a>
 </body>
 </html>

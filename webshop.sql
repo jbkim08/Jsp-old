@@ -5,8 +5,8 @@ default character set utf8mb4 collate utf8mb4_unicode_ci;
 use webshop; # 웹샵을 선택
 
 # 테이블 유저가 있으면 삭제하고 새로 만듬
-DROP TABLE IF exists user;
-create table user (
+DROP TABLE IF exists users;
+create table users (
 	id int primary key auto_increment,  # 유저 아이디 자동생성
     email varchar(50), 					# 이메일
     password varchar(50)				# 비번
