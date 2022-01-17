@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import beans.User;
+
 
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
@@ -34,6 +36,14 @@ public class Controller extends HttpServlet {
 			request.setAttribute("password", "");
 			request.setAttribute("message", "");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);			
+		}
+		else if(action.equals("createaccount")) {
+			request.setAttribute("message", "");
+			request.getRequestDispatcher("/createaccount.jsp").forward(request, response);			
+		}
+		else {
+			out.println("없는 액션 입니다.");
+			return;
 		}
 
 	}
@@ -80,6 +90,42 @@ public class Controller extends HttpServlet {
 				request.setAttribute("message", "DB 에러 발생");
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
 			}
+		}
+		else if(action.equals("createaccount")) { //가입하기 페이지에서 작성후 가입하기버튼 클릭시!
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			String repeatPassword = request.getParameter("repeatpassword");
+			request.setAttribute("email",email); // 이메일 주소를 request에 저장
+			
+			// 패스워드를 두번 적을때 같지 않을경우
+			if(!password.equals(repeatPassword)) {
+				request.setAttribute("message", "패스워드가 틀립니다.");
+				request.getRequestDispatcher("/createaccount.jsp").forward(request, response);
+			} else {
+				User user = new User(email, password);
+				// 유효성 검사 불합격 했을경우
+				if(!user.validate()) {
+					request.setAttribute("message", user.getMessage());
+					request.getRequestDispatcher("/createaccount.jsp").forward(request, response);
+				}
+				else { // 합격했을경우 email 중복확인후 새 계정 만들기
+					try {
+						if(account.exists(email)) { //이메일 중복됬을 경우
+							request.setAttribute("message", "이미 가입된 계정이 있습니다.");
+							request.getRequestDispatcher("/createaccount.jsp").forward(request, response);
+						} else {
+							// 새 계정을 만들기
+							account.create(email, password);
+							request.getRequestDispatcher("/createsuccess.jsp").forward(request, response);
+							
+						}
+					} catch (SQLException e) { //sql에러 발생시
+						request.setAttribute("message", "SQL에러발생");
+						request.getRequestDispatcher("/error.jsp").forward(request, response);
+					}
+				}
+			}
+
 		}
 		
 		
