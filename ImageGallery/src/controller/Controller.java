@@ -21,7 +21,7 @@ public class Controller extends HttpServlet {
 		// 컨트롤로 생성자 (시작할때 한번 실행)
 		actionMap.put("home", "/home.jsp");
 		actionMap.put("image", "/image.jsp");
-		
+		actionMap.put("rate", "/image.jsp");	
 	}
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,7 +33,7 @@ public class Controller extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// doGet으로 처리
 		doGet(request, response);
 	}
 
