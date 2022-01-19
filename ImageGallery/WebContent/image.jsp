@@ -9,9 +9,10 @@
 	<c:param name="title" value="단독이미지"></c:param>
 </c:import>
 
-<sql:setDataSource var="ds" dataSource="jdbc/webshop" />
 
-<sql:query var="results" dataSource="${ds}" sql="select * from images where id=?" >
+<sql:transaction dataSource="jdbc/webshop">
+
+<sql:query var="results" sql="select * from images where id=?" >
 	<sql:param>${param.image}</sql:param>
 </sql:query>
 
@@ -26,13 +27,14 @@
 	
 	<c:set scope="page" var="average_ranking" value="${newRating}" />
 	
-	<sql:update dataSource="${ds}" sql="update images set average_ranking=?, rankings=? where id=?" >
+	<sql:update sql="update images set average_ranking=?, rankings=? where id=?" >
 		<sql:param>${newRating}</sql:param>
 		<sql:param>${image.rankings + 1}</sql:param>
 		<sql:param>${param.image}</sql:param>
 	</sql:update>
 </c:if>
 
+</sql:transaction>
 
 <div class="container">
   <div class="heading">
