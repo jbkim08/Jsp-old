@@ -5,11 +5,18 @@ pageEncoding="UTF-8"%>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="<%=request.getContextPath() %>/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="<%=request.getContextPath() %>/css/style.css"
+    />
     <title>유저 등록</title>
   </head>
   <body>
-	<jsp:include page="../common/header.jsp" />
+    <jsp:include page="../common/header.jsp" />
     <!-- 네브바 끝 -->
     <!-- 본문 -->
     <div class="container">
@@ -44,7 +51,7 @@ pageEncoding="UTF-8"%>
       </div>
     </div>
     <!-- 본문 끝 -->
-	<jsp:include page="../common/footer.jsp" />
+    <jsp:include page="../common/footer.jsp" />
 
     <script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
   </body>
