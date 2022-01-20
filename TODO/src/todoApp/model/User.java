@@ -7,7 +7,7 @@ public class User {
 	private String password;
 	
 	public User() {} //기본 생성자는 자바 빈용으로 필요
-	
+	// 유저 생성자 
 	public User(String firstName, String lastName, String userName, String password) {
 		super();
 		this.firstName = firstName;
@@ -15,7 +15,7 @@ public class User {
 		this.userName = userName;
 		this.password = password;
 	}
-	
+	// set/get 메소드를 자동완성
 	public String getFirstName() {
 		return firstName;
 	}
