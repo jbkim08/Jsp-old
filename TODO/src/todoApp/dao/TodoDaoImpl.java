@@ -73,16 +73,16 @@ public class TodoDaoImpl implements TodoDao{
 	@Override
 	public List<Todo> selectAllTodos() {
 		
-		List<Todo> todos = new ArrayList<>();
+		List<Todo> todos = new ArrayList<>(); //빈 리스트를 생성
 
 		Connection conn = JDBCUtils.getConnection();
 		
-		String SELECT_ALL_TODOS = "SELECT * FROM todos";
+		String SELECT_ALL_TODOS = "SELECT * FROM todos"; //todos테이블 전체 검색
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SELECT_ALL_TODOS);
 			
-			ResultSet rs = pstmt.executeQuery();
-			
+			ResultSet rs = pstmt.executeQuery(); // 쿼리 실행후 결과 저장
+			//결과가 여러줄일경우 while()사용하여 처리, 1줄일때 if()
 			while(rs.next()) { //결과가 있을 경우에 값을 저장한다. (없는데 저장하면 에러발생)
 				long id = rs.getLong("id");
 				String title = rs.getString("title");
@@ -90,6 +90,7 @@ public class TodoDaoImpl implements TodoDao{
 				String description = rs.getString("description");
 				LocalDate targetDate = rs.getDate("target_date").toLocalDate();
 				Boolean status = rs.getBoolean("is_done");
+				//리스트에 담기 ( todo객체로 입력)
 				todos.add(new Todo(id, title, username, description, targetDate, status));
 			}
 			
