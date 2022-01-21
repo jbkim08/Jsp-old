@@ -97,9 +97,11 @@ public class Todo {
 			return false;
 		return true;
 	}
-	
-	
-	
-		
-	
+
+	@Override
+	public String toString() {
+		return "Todo [id=" + id + ", title=" + title + ", username=" + username + ", description=" + description
+				+ ", targetDate=" + targetDate + ", status=" + status + "]";
+	}
+
 }
