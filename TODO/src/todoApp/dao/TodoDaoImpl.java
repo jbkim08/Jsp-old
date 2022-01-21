@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import todoApp.model.Todo;
@@ -16,12 +17,12 @@ public class TodoDaoImpl implements TodoDao{
 	@Override
 	public void insertTodo(Todo todo) {
 		
-		String INSERT_USER_SQL = "INSERT INTO todos(title,username,description,target_date,is_done) "
+		String INSERT_TODO_SQL = "INSERT INTO todos(title,username,description,target_date,is_done) "
 				+ "VALUE (?,?,?,?,?)";
 				
 		try {
 			Connection conn = JDBCUtils.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(INSERT_USER_SQL);
+			PreparedStatement pstmt = conn.prepareStatement(INSERT_TODO_SQL);
 			pstmt.setString(1, todo.getTitle());
 			pstmt.setString(2, todo.getUsername());
 			pstmt.setString(3, todo.getDescription());
@@ -32,8 +33,9 @@ public class TodoDaoImpl implements TodoDao{
 			
 		} catch (SQLException e) {
 			System.out.println("SQL 입력 에러");
+			return;
 		}
-
+		System.out.println("입력 완료!");
 	}
 
 	@Override
@@ -62,27 +64,90 @@ public class TodoDaoImpl implements TodoDao{
 			
 		} catch (SQLException e) {
 			System.out.println("SQL todo 검색 에러");
+			return null;
 		}
-		
+		System.out.println("아이디로 할일 검색완료!");
 		return todo;
 	}
 
 	@Override
 	public List<Todo> selectAllTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Todo> todos = new ArrayList<>();
+
+		Connection conn = JDBCUtils.getConnection();
+		
+		String SELECT_ALL_TODOS = "SELECT * FROM todos";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SELECT_ALL_TODOS);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) { //결과가 있을 경우에 값을 저장한다. (없는데 저장하면 에러발생)
+				long id = rs.getLong("id");
+				String title = rs.getString("title");
+				String username = rs.getString("username");
+				String description = rs.getString("description");
+				LocalDate targetDate = rs.getDate("target_date").toLocalDate();
+				Boolean status = rs.getBoolean("is_done");
+				todos.add(new Todo(id, title, username, description, targetDate, status));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("SQL todo ALL검색 에러");
+			return null;
+		}
+		System.out.println("todo 리스트 검색완료!");
+		return todos;
 	}
 
 	@Override
 	public boolean deleteTodo(long todoId) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		String DELETE_TODO_SQL = "DELETE FROM todos WHERE id = ?";
+		boolean rowDeleted = false;
+				
+		try {
+			Connection conn = JDBCUtils.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(DELETE_TODO_SQL);
+			pstmt.setLong(1, todoId);		
+			
+			rowDeleted = pstmt.executeUpdate() > 0; // 한줄이상 삭제가 되면 true
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 삭제 에러");
+			return false;
+		}
+		System.out.println("할일 삭제!");
+		return rowDeleted;
 	}
 
 	@Override
 	public boolean updateTodo(Todo todo) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		String UPDATE_TODO = 
+				"UPDATE todos set title=?, username=?, description=?, target_date=?, is_done=? where id=?";
+		boolean rowUpdated = false;
+		
+		try {
+			Connection connection = JDBCUtils.getConnection();
+			PreparedStatement pstmt = connection.prepareStatement(UPDATE_TODO); 
+			
+			pstmt.setString(1, todo.getTitle());
+			pstmt.setString(2, todo.getUsername());
+			pstmt.setString(3, todo.getDescription());
+			pstmt.setDate(4, JDBCUtils.getSQLDate(todo.getTargetDate()));
+			pstmt.setBoolean(5, todo.isStatus());
+			pstmt.setLong(6, todo.getId());
+			
+			rowUpdated = pstmt.executeUpdate() > 0;
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 업데이트 todo 에러");
+			return false;
+		}
+		System.out.println("업데이트 완료!");
+		return rowUpdated;
 	}
 
 }
