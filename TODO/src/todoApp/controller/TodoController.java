@@ -55,7 +55,8 @@ public class TodoController extends HttpServlet {
 			listTodo(request, response);
 			break;
 		default:	//요청주소가 기본 또는 잘못되었을 경우 로그인 페이지로 이동
-			response.sendRedirect("login"); 
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
+			dispatcher.forward(request, response);
 			break;			
 		} //스위치 문 끝
 		
