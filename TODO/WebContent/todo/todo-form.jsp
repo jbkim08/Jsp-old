@@ -47,10 +47,12 @@
           <div class="card card-body">
           <!-- 만약에 todo가 널이면 새로 입력 / todo가 있으면 업데이트 -->
           	<c:if test="${todo != null}">
-          		<form action="<%=request.getContextPath()%>/todos?action=update">
+          		<form action="<%=request.getContextPath()%>/todos">
+          		<input type="hidden" name="action" value="update" >
           	</c:if>
           	<c:if test="${todo == null}">
-          		<form action="<%=request.getContextPath()%>/todos?action=post">
+          		<form action="<%=request.getContextPath()%>/todos">
+          		<input type="hidden" name="action" value="post" >
           	</c:if>
           	
           	<h2>

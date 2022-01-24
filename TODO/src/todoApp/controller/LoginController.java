@@ -42,6 +42,8 @@ public class LoginController extends HttpServlet {
 		
 		if( loginDao.validate(loginBean) ) { //계정 있음 로그인 됨 => 할일 페이지로 forward
 			System.out.println("로그인 성공!");
+			HttpSession session = request.getSession();
+			session.setAttribute("username", username); //로그인 한 유저네임을 세션에 저장
 			RequestDispatcher dispatcher = request.getRequestDispatcher("todo/todo-list.jsp");
 			dispatcher.forward(request, response);			
 		} 

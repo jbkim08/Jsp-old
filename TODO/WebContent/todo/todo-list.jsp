@@ -66,7 +66,10 @@
               <td><c:out value="${todo.targetDate}" /></td>
               <td><c:out value="${todo.status}" /></td>
 
-              <td></td>
+              <td>
+              	<a href="<%=request.getContextPath()%>/todos?action=edit&id=<c:out value='${todo.id}'/>" class="btn btn-info btn-sm">수정</a>
+              	<a href="<%=request.getContextPath()%>/todos?action=delete&id=<c:out value='${todo.id}'/>" class="btn btn-danger btn-sm">삭제</a>
+              </td>
             </tr>
           </c:forEach>
         </tbody>

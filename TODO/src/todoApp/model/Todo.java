@@ -13,6 +13,14 @@ public class Todo {
 	
 	protected Todo() {}
 
+	public Todo(String title, String username, String description, LocalDate targetDate, boolean status) {
+		this.title = title;
+		this.username = username;
+		this.description = description;
+		this.targetDate = targetDate;
+		this.status = status;
+	}
+	
 	public Todo(Long id, String title, String username, String description, LocalDate targetDate, boolean status) {
 		super();
 		this.id = id;
@@ -22,6 +30,7 @@ public class Todo {
 		this.targetDate = targetDate;
 		this.status = status;
 	}
+
 	//get set 메소드 자동완성
 
 	public Long getId() {
