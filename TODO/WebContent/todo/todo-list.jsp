@@ -1,30 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="<%=request.getContextPath() %>/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="<%=request.getContextPath() %>/css/style.css"
-    />
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
     <title>Todo리스트</title>
   </head>
   <body>
     <header>
-      <nav
-        class="navbar navbar-expand-lg navbar-dark"
-        style="background-color: coral"
-      >
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: coral">
         <div class="container-fluid">
-          <a class="navbar-brand" href="<%=request.getContextPath()%>"
-            >TODO APP</a
-          >
+          <a class="navbar-brand" href="<%=request.getContextPath()%>">TODO APP</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -39,16 +27,12 @@ pageEncoding="UTF-8"%>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/list"
-                  >ToDo 리스트</a
-                >
+                <a class="nav-link" href="<%=request.getContextPath()%>/todos?action=list">ToDo 리스트</a>
               </li>
             </ul>
             <ul class="navbar-nav mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/logout"
-                  >로그아웃</a
-                >
+                <a class="nav-link" href="<%=request.getContextPath()%>/todos/logout">로그아웃</a>
               </li>
             </ul>
           </div>
@@ -74,7 +58,18 @@ pageEncoding="UTF-8"%>
             <th>액션</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <!-- 할일 데이터를 테이블로 -->
+          <c:forEach var="todo" items="${listTodo}">
+            <tr>
+              <td><c:out value="${todo.title}" /></td>
+              <td><c:out value="${todo.targetDate}" /></td>
+              <td><c:out value="${todo.status}" /></td>
+
+              <td></td>
+            </tr>
+          </c:forEach>
+        </tbody>
       </table>
     </div>
     <!-- 본문 끝 -->
