@@ -46,7 +46,7 @@
       <h3 class="text-center">할일 목록들</h3>
       <hr />
       <div class="container text-left">
-        <a href="" class="btn btn-success">할일 추가</a>
+        <a href="<%=request.getContextPath()%>/todos?action=new" class="btn btn-success">할일 추가</a>
       </div>
       <br />
       <table class="table table-bordered">

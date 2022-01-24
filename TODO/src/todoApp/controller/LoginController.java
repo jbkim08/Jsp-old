@@ -26,11 +26,8 @@ public class LoginController extends HttpServlet {
 	}
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//HttpSession session = request.getSession();
-		//session.setAttribute("user", "");   //공백
-		//session.setAttribute("message", "");	
-		//로그인 페이지로 이동
-		response.sendRedirect("login/login.jsp"); //로그인폴더안의 로그인jsp페이지로 이동
+		RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
+		dispatcher.forward(request, response);	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
