@@ -1,6 +1,7 @@
 package todoApp.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class TodoController extends HttpServlet {
 		case "delete":
 			deleteTodo(request, response);
 			break;
-		case "edit":
+		case "edit": // 수정 폼을 보여줌
 			showEditForm(request, response);
 			break;
 		case "update":
@@ -56,15 +57,30 @@ public class TodoController extends HttpServlet {
 			listTodo(request, response);
 			break;
 		default:	//요청주소가 기본 또는 잘못되었을 경우 로그인 페이지로 이동
+			HttpSession session = request.getSession();
+			session.invalidate(); //로그인 정보를 모두 삭제
 			RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
 			dispatcher.forward(request, response);		
 		} //스위치 문 끝
 		
 	}
 
-	private void updateTodo(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void updateTodo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
 		
+		HttpSession session = request.getSession();
+		// 업데이트시에는 id도 입력됨
+		Long id = Long.parseLong(request.getParameter("id"));	
+		String title = request.getParameter("title");
+		String username = (String)session.getAttribute("username");
+		String description = request.getParameter("description");
+		LocalDate targetDate = LocalDate.parse(request.getParameter("targetDate"));		
+		boolean isDone = Boolean.valueOf(request.getParameter("isDone"));
+		
+		Todo todo = new Todo(id, title, username, description, targetDate, isDone);		
+		todoDAO.updateTodo(todo);
+		
+		response.sendRedirect("todos?action=list");	// 할일을 업데이트한 후 리스트 페이지로 이동		
 	}
 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -74,11 +90,14 @@ public class TodoController extends HttpServlet {
 		request.setAttribute("todo", theTodo);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("todo/todo-form.jsp");
 		dispatcher.forward(request, response);	
+		
 	}
 
-	private void deleteTodo(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void deleteTodo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Long id = Long.parseLong(request.getParameter("id")); //id를 받음
+		todoDAO.deleteTodo(id);
 		
+		response.sendRedirect("todos?action=list");	// 삭제 후 리스트 페이지로 이동
 	}
 
 	private void insertTodo(HttpServletRequest request, HttpServletResponse response) throws IOException {
