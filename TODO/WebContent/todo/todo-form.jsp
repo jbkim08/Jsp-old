@@ -43,7 +43,7 @@
     <!-- 본문 -->
     <div class="container">
       <div class="row mt-5">
-        <div class="col-md-5">
+        <div class="col-md-6 mx-auto">
           <div class="card card-body">
           <!-- 만약에 todo가 널이면 새로 입력 / todo가 있으면 업데이트 -->
           	<c:if test="${todo != null}">
@@ -64,27 +64,27 @@
           		<input type="hidden" name="id" value="<c:out value='${todo.id}' />" >
           	</c:if>
           	
-          	<div class="form-group">
+          	<div class="form-group mb-2">
           		<label>제목</label>
           		<input type="text" class="form-control" name="title" value="<c:out value='${todo.title}' />" required>
           	</div>
-          	<div class="form-group">
+          	<div class="form-group mb-2">
           		<label>할일 설명</label>
           		<input type="text" class="form-control" name="description" value="<c:out value='${todo.description}' />" required>
           	</div>
-          	<div class="form-group">
+          	<div class="form-group mb-2">
           		<label>현재 상태</label>
           		<select class="form-control" name="isDone">
           			<option value="false">진행중</option>
           			<option value="true">완료</option>
           		</select>
           	</div>
-           	<div class="form-group">
+           	<div class="form-group mb-4">
           		<label>목표 일자</label>
           		<input type="date" class="form-control" name="targetDate" value="<c:out value='${todo.targetDate}' />" required>
           	</div> 
           	
-          	<div class="form-group">
+          	<div class="form-group d-grid">
           		<button type="submit" class="btn btn-info">저장</button>
           	</div>
           	

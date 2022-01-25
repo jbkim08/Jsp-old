@@ -17,8 +17,6 @@ import todoApp.dao.TodoDao;
 import todoApp.dao.TodoDaoImpl;
 import todoApp.model.Todo;
 
-
-// 서블릿이 기본"/"주소이면 다른 서블릿 "/register , /login" 등을 제외한 모든 요청이 여기에서 처리 
 @WebServlet("/todos")
 public class TodoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
