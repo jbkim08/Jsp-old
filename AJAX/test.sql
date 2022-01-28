@@ -23,6 +23,8 @@ CREATE TABLE comment (
   PRIMARY KEY(id)
 );
 
+INSERT INTO comment (comment, email) VALUES ("첫 댓글입니다.","drv98@naver.com");
+
 
 
 
