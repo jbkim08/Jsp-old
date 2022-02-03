@@ -43,6 +43,7 @@ public class ContactDao {
 			}
 					
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("SQL 에러");
 		} finally { //에러에 상관없이 무조건 실행
 			//DB연결 객체들을 닫는 과정이 필요하다.
