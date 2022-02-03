@@ -45,7 +45,8 @@
             </tbody>
         </table>
     </div>
-    <%-- 아래는 모달(팝업창) html --%>
+    
+		<%-- 아래는 모달(팝업창) html --%>
     <div class="modal fade" id="modal-add-update" tabindex="-1" aria-labelledby="addUpdateLabel" aria-hidden="true">
 	    <div class="modal-dialog">
 	        <div class="modal-content">
