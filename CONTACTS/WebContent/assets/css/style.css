@@ -1,3 +1,4 @@
-body {
-	background-color : coral;
+table tbody td {
+  word-break: keep-all !important;
+  vertical-align: middle !important;
 }

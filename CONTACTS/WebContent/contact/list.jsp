@@ -45,7 +45,7 @@
             </tbody>
         </table>
     </div>
-    
+    <%-- 아래는 모달(팝업창) html --%>
     <div class="modal fade" id="modal-add-update" tabindex="-1" aria-labelledby="addUpdateLabel" aria-hidden="true">
 	    <div class="modal-dialog">
 	        <div class="modal-content">
@@ -55,7 +55,7 @@
 	                    <span aria-hidden="true">&times;</span>
 	                </button>
 	            </div>
-	            <form autocomplete="nope">
+	            <form autocomplete="off">
 		            <div class="modal-body">
 	                	<div class="form-group">
 		                    <label for="name">name</label>
@@ -105,14 +105,13 @@
 	    </div>
 	</div>
 	
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" crossorigin></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" crossorigin></script>
-	<script src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js" crossorigin></script>
+<jsp:include page="/includes/footer.jsp" />	
+
+<script src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js" ></script>
+	
 	<script>
 		$('.nav-link').removeClass('active');
 		$('#m-contacts').addClass('active');
 		var path = '<%= request.getContextPath() %>';
 	</script>
 	<script src="assets/js/contact.js"></script>
-<jsp:include page="/includes/footer.jsp" />
