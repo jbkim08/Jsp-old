@@ -72,7 +72,7 @@
     </div>
   </div>
 </div>
-
+<!-- 삭제 모달 창 -->
 <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

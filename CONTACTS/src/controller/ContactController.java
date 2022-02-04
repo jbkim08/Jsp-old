@@ -46,7 +46,7 @@ public class ContactController extends HttpServlet {
 		case "update": // 실제 수정하기
 			update(req, resp);
 			break;
-		case "del": // 삭제
+		case "delete": // 삭제
 			delete(req, resp);
 			break;
 		default: // 전체 연락처를 화면에 테이블로 표시
@@ -63,8 +63,14 @@ public class ContactController extends HttpServlet {
 	}
 
 	private void delete(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-
+		int id = Integer.parseInt(req.getParameter("id")); //문자열 id를 정수 변환
+		
+		boolean isDeleted = contactDao.delete(id);
+		
+		if(isDeleted) {
+			System.out.println("삭제 완료!");	
+			new Json(resp).sendMessage(true, "연락처 삭제됨");
+		}
 	}
 
 	private void update(HttpServletRequest req, HttpServletResponse resp) {

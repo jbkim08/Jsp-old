@@ -74,4 +74,32 @@
         console.log(textStatus);
       });
   });
+  //테이블에서 삭제버튼 클릭 => 삭제 모달창 생성
+  $('table').on('click', '.btn-delete', function (e) {
+    $('#frm-delete').find('input[name=id]').val($(this).data('id'));
+  });
+  //삭제할때(삭제모달의 form의 submit버튼을 클릭했을때)
+  $('#frm-delete').submit(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $('.btn-action').prop('disabled', true);
+
+    $.ajax({
+      type: 'POST',
+      url: path + '/contact?cmd=delete',
+      data: $('#frm-delete').serialize(), //폼태그 입력내용을 문자열로 변환
+      dataType: 'json', //받을때 타입
+    })
+      .done(function (data) {
+        if (data.status) {
+          //성공시
+          $('#modal-delete').modal('hide'); //모달창 닫기
+          location.reload(); //새로 고침
+        }
+      })
+      .fail(function (jqXHR, textStatus) {
+        //실패시
+        console.log(textStatus);
+      });
+  });
 })(path);
