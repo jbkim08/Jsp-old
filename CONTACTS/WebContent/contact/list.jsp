@@ -47,7 +47,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form autocomplete="off" method="post">
+      <form id="add-update" autocomplete="off">
         <div class="modal-body">
           <div class="form-group">
             <label for="name">name</label>

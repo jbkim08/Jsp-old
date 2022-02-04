@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import dao.ContactDao;
 import model.Contact;
+import utills.Json;
 
 @WebServlet("/contact")
 public class ContactController extends HttpServlet {
@@ -67,13 +68,30 @@ public class ContactController extends HttpServlet {
 	}
 
 	private void update(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+		Contact contact = new Contact();
+		
+		contact.setId(Integer.parseInt(req.getParameter("id")));
+		contact.setName(req.getParameter("name"));
+		contact.setEmail(req.getParameter("email"));
+		contact.setPhone(req.getParameter("phone"));
+		
+		boolean isUpdated = contactDao.update(contact); //참이면 저장완료
+		
+		if(isUpdated) {
+			System.out.println("수정 완료!");	
+			new Json(resp).sendMessage(true, "연락처 수정됨");
+		}
 
 	}
 
 	private void edit(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-
+		int id = Integer.parseInt(req.getParameter("id")); //문자열 id를 정수 변환
+		
+		Contact contact = contactDao.find(id); //id로 연락처 객체 찾기
+		if(contact != null) {
+			System.out.println("찾기 완료!");	
+			new Json(resp).sendContact(contact); //연락처를 상태와 제이슨 변환해 출력
+		}
 	}
 
 	private void save(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -85,10 +103,13 @@ public class ContactController extends HttpServlet {
 		
 		boolean isSaved = contactDao.save(contact); //참이면 저장완료
 		
-		if(isSaved)
+		if(isSaved) {
 			System.out.println("입력 완료!");	
+			new Json(resp).sendMessage(true, "연락처 입력됨");
+		}
 		
-		list(req, resp); //다시 리스트 화면 출력
+		//list(req, resp); //다시 리스트 화면 출력
+		
 	}
 
 	@Override
